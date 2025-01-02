@@ -89,6 +89,20 @@
             background-color: #333333;
             color: #ffffff;
         }
+        .progress-container {
+            width: 80%;
+            margin: 20px auto;
+            height: 4px;
+            background-color: #555;
+            position: relative;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background-color: #4CAF50;
+            width: 0%;
+            cursor: pointer;
+        }
 
         /* 媒体查询，针对小屏幕设备 */
         @media (max-width: 768px) {
@@ -135,6 +149,9 @@
             <button onclick="previousTrack()">上一首</button>
             <button onclick="togglePlay()">播放/暂停</button>
             <button onclick="nextTrack()">下一首</button>
+        </div>
+        <div class="progress-container" id="progressContainer">
+            <div class="progress-bar" id="progressBar"></div>
         </div>
     </div>
 
@@ -205,6 +222,23 @@
                 audioPlayer.play();
             }
         }
+        // 更新进度条
+        audioPlayer.addEventListener('timeupdate', function() {
+            const progressPercent = (audioPlayer.currentTime / audioPlayer.duration) * 100;
+            document.getElementById('progressBar').style.width = progressPercent + '%';
+        });
+
+        // 当一首歌曲播放完毕后自动播放下一首
+        audioPlayer.addEventListener('ended', function() {
+            nextTrack();
+        });
+
+        // 初始化进度条点击事件，允许用户跳转到音频的特定位置
+        document.getElementById('progressContainer').addEventListener('click', function(e) {
+            const rect = this.getBoundingClientRect();
+            const pos = (e.clientX - rect.left) / rect.width;
+            audioPlayer.currentTime = pos * audioPlayer.duration;
+        });
 
         // 页面加载时加载第一首歌曲
         window.onload = function() {
