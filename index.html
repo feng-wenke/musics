@@ -129,6 +129,56 @@
                 font-size: 14px;
             }
         }
+        @keyframes glowing-line {
+    0% {
+        background-image: linear-gradient(90deg, red, orange, yellow, green, blue, purple);
+    }
+    25% {
+        background-image: linear-gradient(90deg, orange, yellow, green, blue, purple, red);
+    }
+    50% {
+        background-image: linear-gradient(90deg, yellow, green, blue, purple, red, orange);
+    }
+    75% {
+        background-image: linear-gradient(90deg, green, blue, purple, red, orange, yellow);
+    }
+    100% {
+        background-image: linear-gradient(90deg, blue, purple, red, orange, yellow, green);
+    }
+}
+/* 应用流光动画到音乐播放器的进度条 */
+.progress-container {
+    overflow: hidden; /* 防止渐变背景超出容器 */
+}
+
+.progress-bar {
+    animation: glowing-line 5s linear infinite;
+    background-size: 400% 400%; /* 设置背景大小以适应动画 */
+}
+@keyframes glowing-border {
+    0% {
+        border-image: linear-gradient(45deg, red, orange, yellow, green, blue, purple) 1;
+    }
+    25% {
+        border-image: linear-gradient(45deg, orange, yellow, green, blue, purple, red) 1;
+    }
+    50% {
+        border-image: linear-gradient(45deg, yellow, green, blue, purple, red, orange) 1;
+    }
+    75% {
+        border-image: linear-gradient(45deg, green, blue, purple, red, orange, yellow) 1;
+    }
+    100% {
+        border-image: linear-gradient(45deg, blue, purple, red, orange, yellow, green) 1;
+    }
+}
+/* 应用流光动画到音乐播放器的圆形边框 */
+.music-player::before {
+    animation: glowing-border 5s linear infinite;
+    border-width: 4px;
+    border-style: solid;
+    border-radius: 50%;
+}
     </style>
 </head>
 
